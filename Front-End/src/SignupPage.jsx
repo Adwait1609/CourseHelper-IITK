@@ -13,7 +13,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress, Alert } from "@mui/material";
-import API_BASE_URL from "./apiConfig";
 
 export default function SignUp() {
   const navigate = useNavigate();
