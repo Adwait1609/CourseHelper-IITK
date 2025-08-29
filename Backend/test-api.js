@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const BASE_URL = `http://localhost:3000`;
+const BASE_URL = `http://localhost:3001`;
 
 // Test user credentials
 const testUser = {

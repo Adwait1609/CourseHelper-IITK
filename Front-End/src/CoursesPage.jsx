@@ -69,7 +69,7 @@ const CoursesPage = () => {
       }
 
       try {
-        const response = await axios.get("${API_BASE_URL}/api/courses", {
+        const response = await axios.get(`${API_BASE_URL}/api/courses`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCourses(response.data);
@@ -126,7 +126,7 @@ const CoursesPage = () => {
     const token = localStorage.getItem("jwtToken");
     
     try {
-      const response = await axios.post("${API_BASE_URL}/api/courses", newCourse, {
+      const response = await axios.post(`${API_BASE_URL}/api/courses`, newCourse, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCourses([...courses, response.data]);

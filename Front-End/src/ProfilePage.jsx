@@ -42,7 +42,7 @@ const ProfilePage = () => {
       }
 
       try {
-        const response = await axios.get("${API_BASE_URL}/api/auth/profile", {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(response.data);
@@ -79,7 +79,7 @@ const ProfilePage = () => {
 
     try {
       const response = await axios.put(
-        "${API_BASE_URL}/api/auth/profile",
+        `${API_BASE_URL}/api/auth/profile`,
         {
           firstName: profile.firstName,
           lastName: profile.lastName,

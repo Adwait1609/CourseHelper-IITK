@@ -133,7 +133,7 @@ npm install
 
 3. Update the API base URL (if needed):
    - Open `src/api.js` or directly in the components where API calls are made
-   - Change the base URL if your backend is hosted somewhere other than localhost:5000
+   - Change the base URL if your backend is hosted somewhere other than localhost:3001
 
 4. Start the frontend development server:
 ```bash
