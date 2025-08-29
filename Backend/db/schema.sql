@@ -1,12 +1,8 @@
 -- Create schema if it doesn't exist
 CREATE SCHEMA IF NOT EXISTS myschema;
 
--- Drop tables if they exist to avoid conflicts when recreating the schema
-DROP TABLE IF EXISTS myschema.courses;
-DROP TABLE IF EXISTS myschema.users;
-
--- Create users table with more fields
-CREATE TABLE myschema.users (
+-- Create users table if it doesn't exist
+CREATE TABLE IF NOT EXISTS myschema.users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -18,8 +14,8 @@ CREATE TABLE myschema.users (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create courses table with reference to users
-CREATE TABLE myschema.courses (
+-- Create courses table if it doesn't exist
+CREATE TABLE IF NOT EXISTS myschema.courses (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL,
     name VARCHAR(100) NOT NULL,
@@ -32,5 +28,16 @@ CREATE TABLE myschema.courses (
     FOREIGN KEY (user_id) REFERENCES myschema.users(id) ON DELETE CASCADE
 );
 
--- Index for faster lookups on common queries
-CREATE INDEX idx_courses_user_id ON myschema.courses(user_id);
+-- Create index if it doesn't exist
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_indexes 
+        WHERE schemaname = 'myschema' 
+        AND tablename = 'courses' 
+        AND indexname = 'idx_courses_user_id'
+    ) THEN
+        CREATE INDEX idx_courses_user_id ON myschema.courses(user_id);
+    END IF;
+END
+$$;

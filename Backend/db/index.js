@@ -44,6 +44,28 @@ pool.on("error", (err) => {
 // Function to initialize the database schema
 const initializeDatabase = async () => {
   try {
+    console.log("Checking database schema...");
+    
+    // First check if the tables already exist
+    const checkTablesQuery = `
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_schema = 'myschema' AND table_name = 'users'
+      ) AS users_exists,
+      EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_schema = 'myschema' AND table_name = 'courses'
+      ) AS courses_exists;
+    `;
+    
+    const result = await pool.query(checkTablesQuery);
+    const { users_exists, courses_exists } = result.rows[0];
+    
+    if (users_exists && courses_exists) {
+      console.log("Database schema already exists, skipping initialization");
+      return;
+    }
+    
     console.log("Initializing database schema...");
     const schemaPath = path.join(__dirname, "schema.sql");
     const schema = fs.readFileSync(schemaPath, "utf8");
