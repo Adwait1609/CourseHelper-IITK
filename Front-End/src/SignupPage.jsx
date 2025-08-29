@@ -1,3 +1,4 @@
+import API_BASE_URL from "./apiConfig";
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -12,6 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress, Alert } from "@mui/material";
+import API_BASE_URL from "./apiConfig";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -41,7 +43,7 @@ export default function SignUp() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/signup", signupDetails);
+      const response = await axios.post(`${API_BASE_URL}/api/auth/signup`, signupDetails);
 
       if (response.status === 201) {
         alert("Signup successful! Redirecting to login...");

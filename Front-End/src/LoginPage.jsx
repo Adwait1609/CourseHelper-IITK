@@ -1,3 +1,4 @@
+import API_BASE_URL from "./apiConfig";
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -14,6 +15,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Alert, CircularProgress } from "@mui/material";
+import API_BASE_URL from "./apiConfig";
 
 export default function LogInSide() {
   const navigate = useNavigate();
@@ -41,7 +43,7 @@ export default function LogInSide() {
 
     try {
       // Make an API call to the login endpoint
-      const response = await axios.post("http://localhost:3000/api/auth/login", loginDetails);
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, loginDetails);
 
       if (response.status === 200) {
         const { token, user } = response.data;

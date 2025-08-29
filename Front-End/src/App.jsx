@@ -1,3 +1,4 @@
+import API_BASE_URL from "./apiConfig";
 import React, { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import LandingPage from "./LandingPage";

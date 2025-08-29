@@ -1,3 +1,4 @@
+import API_BASE_URL from "./apiConfig";
 import React, { useState, useEffect } from "react";
 import {
   AppBar,
@@ -68,7 +69,7 @@ const CoursesPage = () => {
       }
 
       try {
-        const response = await axios.get("http://localhost:3000/api/courses", {
+        const response = await axios.get("${API_BASE_URL}/api/courses", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCourses(response.data);
@@ -125,7 +126,7 @@ const CoursesPage = () => {
     const token = localStorage.getItem("jwtToken");
     
     try {
-      const response = await axios.post("http://localhost:3000/api/courses", newCourse, {
+      const response = await axios.post("${API_BASE_URL}/api/courses", newCourse, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCourses([...courses, response.data]);
@@ -153,7 +154,7 @@ const CoursesPage = () => {
     
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/courses/${selectedCourse.id}`,
+        `${API_BASE_URL}/api/courses/${selectedCourse.id}`,
         selectedCourse,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -185,7 +186,7 @@ const CoursesPage = () => {
     const token = localStorage.getItem("jwtToken");
     
     try {
-      await axios.delete(`http://localhost:3000/api/courses/${courseId}`, {
+      await axios.delete(`${API_BASE_URL}/api/courses/${courseId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCourses(courses.filter((course) => course.id !== courseId));
