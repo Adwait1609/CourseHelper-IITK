@@ -1,5 +1,11 @@
 const express = require("express");
-const { registerUser, loginUser } = require("../controllers/authController");
+const { 
+  registerUser, 
+  loginUser, 
+  getUserProfile, 
+  updateUserProfile 
+} = require("../controllers/authController");
+const { authenticateToken } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
@@ -9,7 +15,12 @@ router.use((req, res, next) => {
   next();
 });
 
+// Public routes
 router.post("/signup", registerUser); // User registration route
 router.post("/login", loginUser); // User login route
+
+// Protected routes - require authentication
+router.get("/profile", authenticateToken, getUserProfile); // Get user profile
+router.put("/profile", authenticateToken, updateUserProfile); // Update user profile
 
 module.exports = router;
