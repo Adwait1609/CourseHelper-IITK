@@ -41,7 +41,7 @@ const ProfilePage = () => {
       }
 
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/profile", {
+        const response = await axios.get("http://localhost:3000/api/auth/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(response.data);
@@ -78,7 +78,7 @@ const ProfilePage = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:5000/api/auth/profile",
+        "http://localhost:3000/api/auth/profile",
         {
           firstName: profile.firstName,
           lastName: profile.lastName,
